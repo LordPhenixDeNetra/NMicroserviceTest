@@ -1,9 +1,52 @@
+#version: '3'
+#services:
+#  mongo:
+#    image: mongo
+#    environment:
+#      - MONGO_INITDB_DATABASE=lpdn
+#      - MONGO_INITDB_ROOT_PASSWORD=lpdn
+#      - MONGO_INITDB_ROOT_USERNAME=NMT_user_service
+#    ports:
+#      - "27017"
+#
+#  mongo-express:
+#    image: mongo-express
+#    environment:
+#      - ME_CONFIG_MONGODB_SERVER=mongo
+#      - ME_CONFIG_MONGODB_PORT=27017
+#      - ME_CONFIG_MONGODB_AUTH_USERNAME=lpdn
+#      - ME_CONFIG_MONGODB_AUTH_PASSWORD=lpdn
+#      - ME_CONFIG_BASICAUTH_USERNAME=lpdn
+#      - ME_CONFIG_BASICAUTH_PASSWORD=lpdn
+#    depends_on:
+#      - mongo
+#    ports:
+#      - "8081:8081"
+#
+
+version: '3'
+
 services:
-  mongodb:
-    image: 'mongo:latest'
+  mongo:
+    image: mongo
     environment:
-      - 'MONGO_INITDB_DATABASE=mydatabase'
-      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - MONGO_INITDB_ROOT_USERNAME=lpdn
+      - MONGO_INITDB_ROOT_PASSWORD=lpdn
+      - MONGO_INITDB_DATABASE=NMT_user_service
     ports:
-      - '27017'
+      - "27017:27017"
+
+  mongo-express:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=lpdn
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=lpdn
+      - ME_CONFIG_BASICAUTH_USERNAME=lpdn
+      - ME_CONFIG_BASICAUTH_PASSWORD=lpdn
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+
